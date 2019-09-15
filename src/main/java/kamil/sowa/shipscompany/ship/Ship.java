@@ -1,9 +1,7 @@
 package kamil.sowa.shipscompany.ship;
 
-import kamil.sowa.shipscompany.cruise.CruiseEntity;
-import kamil.sowa.shipscompany.passanger.PassengerEntity;
-import lombok.Builder;
-import lombok.Data;
+import kamil.sowa.shipscompany.cruise.Cruise;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,10 +10,12 @@ import java.util.List;
 @Entity
 @Data
 @Builder
-public class ShipEntity {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Ship {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
@@ -26,7 +26,7 @@ public class ShipEntity {
 
     @NotNull
     @OneToMany(fetch = FetchType.LAZY,
-            mappedBy = "ship_entity")
-    private List<CruiseEntity> cruises;
+            mappedBy = "ship")
+    private List<Cruise> cruises;
 
 }

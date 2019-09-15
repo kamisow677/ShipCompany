@@ -1,10 +1,8 @@
 package kamil.sowa.shipscompany.ship;
 
-import kamil.sowa.shipscompany.passanger.PassengerDto;
-import kamil.sowa.shipscompany.passanger.PassengerDtoMapper;
-import kamil.sowa.shipscompany.passanger.PassengerEntity;
-import kamil.sowa.shipscompany.passanger.PassengerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -13,35 +11,36 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ShipService {
-    private ShipRepository shipRepository;
-    private ShipDtoMapper shipDtoMapper;
+    private final ShipRepository shipRepository;
+    private final ShipDtoMapper shipDtoMapper;
 
-    public List<ShipDto> getAll(){
-        return shipDtoMapper.entityToDto(shipRepository.findAll());
+    public Page<ShipDto> getAll(Pageable pageable) {
+        return shipRepository.findAll(pageable)
+                .map(shipDtoMapper::entityToDto);
     }
 
     public ShipDto save(ShipDto shipDto) {
-        ShipEntity save = shipRepository.save(shipDtoMapper.dtoToEntity(shipDto));
+        Ship save = shipRepository.save(shipDtoMapper.dtoToEntity(shipDto));
         return shipDtoMapper.entityToDto(save);
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         shipRepository.deleteById(id);
     }
 
-    private ShipEntity passengerEntity(Long id){
+    private Ship CruiserEntity(Long id) {
         return shipRepository.findById(id)
-                .orElseThrow(()->new EntityNotFoundException("Not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Not found"));
     }
 
 
-    public ShipDto get(Long id)  {
-        return shipDtoMapper.entityToDto(passengerEntity(id));
+    public ShipDto get(Long id) {
+        return shipDtoMapper.entityToDto(CruiserEntity(id));
     }
 
 
-    public ShipDto put(Long id, ShipDto shipDto)  {
-        ShipEntity passenger = ShipEntity.builder().id(id).build();
+    public ShipDto put(Long id, ShipDto shipDto) {
+        Ship passenger = Ship.builder().id(id).build();
         shipDtoMapper.toTarget(shipDto, passenger);
         return shipDtoMapper.entityToDto(passenger);
     }

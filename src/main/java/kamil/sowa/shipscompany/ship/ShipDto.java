@@ -1,6 +1,9 @@
 package kamil.sowa.shipscompany.ship;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;

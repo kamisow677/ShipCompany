@@ -1,22 +1,18 @@
 package kamil.sowa.shipscompany.ship;
 
-import kamil.sowa.shipscompany.passanger.PassengerDto;
-import kamil.sowa.shipscompany.passanger.PassengerEntity;
-import org.mapstruct.IterableMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ShipDtoMapper {
 
-    ShipDto entityToDto(ShipEntity shipEntity);
+    ShipDto entityToDto(Ship ship);
 
     @IterableMapping(qualifiedByName = "entityToDto")
-    List<ShipDto> entityToDto(List<ShipEntity> shipEntity);
+    List<ShipDto> entityToDto(List<Ship> ship);
 
-    ShipEntity dtoToEntity(ShipDto shipDto);
+    Ship dtoToEntity(ShipDto shipDto);
 
-    void toTarget(ShipDto source, @MappingTarget ShipEntity target);
+    void toTarget(ShipDto source, @MappingTarget Ship target);
 }

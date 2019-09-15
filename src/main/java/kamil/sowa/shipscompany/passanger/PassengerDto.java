@@ -17,4 +17,7 @@ public class PassengerDto {
     @NotNull
     private Integer lastName;
 
+    @NotNull
+    Long cruiseId;
+
 }

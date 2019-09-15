@@ -1,6 +1,6 @@
 package kamil.sowa.shipscompany.passanger;
 
-import kamil.sowa.shipscompany.cruise.CruiseEntity;
+import kamil.sowa.shipscompany.cruise.Cruise;
 import lombok.*;
 
 import javax.persistence.*;
@@ -8,8 +8,10 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
-@Builder(toBuilder=true)
-public class PassengerEntity {
+@Builder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
+public class Passenger {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +25,6 @@ public class PassengerEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cruise_id")
-    CruiseEntity cruise;
+    Cruise cruise;
 
 }
