@@ -24,7 +24,6 @@ public class Ship {
     @NotNull
     private Integer serialNumber;
 
-    @NotNull
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "ship")
     private List<Cruise> cruises;
