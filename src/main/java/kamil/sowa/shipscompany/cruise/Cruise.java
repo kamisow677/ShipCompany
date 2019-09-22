@@ -17,7 +17,7 @@ import java.util.List;
 public class Cruise {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Long id;
 
     @NotNull
@@ -26,12 +26,10 @@ public class Cruise {
     @NotNull
     private LocalDateTime arrival;
 
-    @NotNull
     @OneToMany(fetch = FetchType.LAZY,
     mappedBy = "cruise")
     private List<Passenger> passengerEntities;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ship_id")
     private Ship ship;

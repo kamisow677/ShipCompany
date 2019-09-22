@@ -1,15 +1,13 @@
 package kamil.sowa.shipscompany.ship;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor
 @Data
+@Builder
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class ShipDto {
 

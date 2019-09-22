@@ -15,7 +15,7 @@ import java.util.List;
 public class Ship {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Long id;
 
     @NotNull

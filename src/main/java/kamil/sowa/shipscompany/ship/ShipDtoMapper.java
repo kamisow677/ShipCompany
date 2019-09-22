@@ -12,7 +12,9 @@ public interface ShipDtoMapper {
     @IterableMapping(qualifiedByName = "entityToDto")
     List<ShipDto> entityToDto(List<Ship> ship);
 
+    @Mapping(target = "cruises", ignore = true)
     Ship dtoToEntity(ShipDto shipDto);
 
+    @Mapping(target = "cruises", ignore = true)
     void toTarget(ShipDto source, @MappingTarget Ship target);
 }

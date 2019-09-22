@@ -1,6 +1,8 @@
 package kamil.sowa.shipscompany.utils
 
 import kamil.sowa.shipscompany.cruise.Cruise
+import kamil.sowa.shipscompany.cruise.CruiseDto
+import kamil.sowa.shipscompany.ship.ShipDto
 import kamil.sowa.shipscompany.ship.Ship
 
 class ShipConstans {
@@ -19,5 +21,12 @@ class ShipConstans {
                 .id(id)
                 .model(MODELS[1])
                 .serialNumber(SERIAL_NUMBER[1])
+    }
+
+    static ShipDto.ShipDtoBuilder createShipDto1(Long id) {
+        return new ShipDto.ShipDtoBuilder()
+                .id(id)
+                .model(MODELS[0])
+                .serialNumber(SERIAL_NUMBER[0])
     }
 }

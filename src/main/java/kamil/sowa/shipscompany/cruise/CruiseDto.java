@@ -1,13 +1,14 @@
 package kamil.sowa.shipscompany.cruise;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-@NoArgsConstructor
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CruiseDto {
 
     private Long id;

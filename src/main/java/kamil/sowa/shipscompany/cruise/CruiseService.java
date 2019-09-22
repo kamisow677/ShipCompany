@@ -6,7 +6,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,8 +18,8 @@ public class CruiseService {
                 .map(cruiseDtoMapper::entityToDto);
     }
 
-    public CruiseDto save(CruiseDto CruiseDto) {
-        Cruise save = repository.save(cruiseDtoMapper.dtoToEntity(CruiseDto));
+    public CruiseDto save(CruiseDto cruiseDto) {
+        Cruise save = repository.save(cruiseDtoMapper.dtoToEntity(cruiseDto));
         return cruiseDtoMapper.entityToDto(save);
     }
 
@@ -28,14 +27,14 @@ public class CruiseService {
         repository.deleteById(id);
     }
 
-    private Cruise CruiserEntity(Long id) {
+    private Cruise cruiserEntity(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Not found"));
     }
 
 
     public CruiseDto get(Long id) {
-        return cruiseDtoMapper.entityToDto(CruiserEntity(id));
+        return cruiseDtoMapper.entityToDto(cruiserEntity(id));
     }
 
 

@@ -14,14 +14,14 @@ import javax.validation.constraints.NotNull;
 public class Passenger {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Long id;
 
     @NotNull
     private String firstName;
 
     @NotNull
-    private Integer lastName;
+    private String lastName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cruise_id")

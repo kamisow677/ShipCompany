@@ -1,12 +1,13 @@
 package kamil.sowa.shipscompany.passanger;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor
 @Data
+@Builder
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class PassengerDto {
 
     private Long id;
@@ -15,7 +16,7 @@ public class PassengerDto {
     private String firstName;
 
     @NotNull
-    private Integer lastName;
+    private String lastName;
 
     @NotNull
     Long cruiseId;
