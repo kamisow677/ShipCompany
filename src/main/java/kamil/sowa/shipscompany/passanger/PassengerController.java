@@ -39,7 +39,7 @@ public class PassengerController {
     }
 
     @PutMapping(value ="/{id}")
-    public ResponseEntity<PassengerDto> save(@PathVariable Long id, @RequestBody PassengerDto passengerDto){
+    public ResponseEntity<PassengerDto> update(@PathVariable Long id, @RequestBody PassengerDto passengerDto){
         return ResponseEntity.ok(passengerService.put(id, passengerDto));
     }
 

@@ -19,5 +19,7 @@ public interface CruiseDtoMapper {
     @Mapping(target = "ship.id", source = "cruiseDto.shipId")
     Cruise dtoToEntity(CruiseDto cruiseDto);
 
+    @Mapping(target = "target.id", ignore = true)
+    @Mapping(target = "target.ship.id", source = "source.shipId")
     void toTarget(CruiseDto source, @MappingTarget Cruise target);
 }

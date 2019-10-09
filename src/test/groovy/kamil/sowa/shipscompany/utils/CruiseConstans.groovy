@@ -5,23 +5,17 @@ import kamil.sowa.shipscompany.cruise.CruiseDto;
 import kamil.sowa.shipscompany.passanger.Passenger
 import kamil.sowa.shipscompany.ship.Ship
 
-import javax.persistence.FetchType
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
-import javax.persistence.JoinColumn
-import javax.persistence.ManyToOne
-import javax.persistence.OneToMany
-import javax.validation.constraints.NotNull
 import java.time.LocalDateTime
 
 class CruiseConstans {
     private static LocalDateTime[] DEPARTURES = [
             LocalDateTime.of(2014, 2, 1, 10, 10, 30)
             , LocalDateTime.of(2018, 2, 1, 10, 10, 30)
+            , LocalDateTime.of(2019, 3, 2, 12, 10, 30)
     ]
     private static LocalDateTime[] ARRIVALS = [
             LocalDateTime.of(2015, 2, 1, 10, 10, 30)
+            , LocalDateTime.of(2018, 2, 1, 10, 10, 30)
             , LocalDateTime.of(2019, 2, 1, 10, 10, 30)
     ]
 
@@ -45,7 +39,7 @@ class CruiseConstans {
         return new CruiseDto.CruiseDtoBuilder()
                 .id(id)
                 .shipId(shipId)
-                .arrival(ARRIVALS[0])
-                .departure(DEPARTURES[0])
+                .arrival(ARRIVALS[2])
+                .departure(DEPARTURES[2])
     }
 }

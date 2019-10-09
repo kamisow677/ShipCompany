@@ -7,8 +7,8 @@ import kamil.sowa.shipscompany.ship.Ship
 import kamil.sowa.shipscompany.ship.ShipDto
 
 class PassengerConstans {
-    private static String[] FIRSTNAME = ["Adam", "John"]
-    private static String[] LASTNAME = ["Smith", "Newmann"]
+    private static String[] FIRSTNAME = ["Adam", "John","Tom"]
+    private static String[] LASTNAME = ["Smith", "Newmann","Ford"]
 
     static Passenger.PassengerBuilder createPassenger1(Long id, Cruise cruise) {
         return new Passenger.PassengerBuilder()
@@ -28,11 +28,11 @@ class PassengerConstans {
 
     }
 
-    static PassengerDto.PassengerDtoBuilder createPassengerDto1(Long id, Integer cruiseId) {
+    static PassengerDto.PassengerDtoBuilder createPassengerDto1(Long id, Long cruiseId) {
         return new PassengerDto.PassengerDtoBuilder()
                 .id(id)
-                .firstName(FIRSTNAME[1])
-                .lastName(LASTNAME[1])
+                .firstName(FIRSTNAME[2])
+                .lastName(LASTNAME[2])
                 .cruiseId(cruiseId)
     }
 }

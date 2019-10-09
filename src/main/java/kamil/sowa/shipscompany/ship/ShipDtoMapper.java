@@ -15,6 +15,5 @@ public interface ShipDtoMapper {
     @Mapping(target = "cruises", ignore = true)
     Ship dtoToEntity(ShipDto shipDto);
 
-    @Mapping(target = "cruises", ignore = true)
     void toTarget(ShipDto source, @MappingTarget Ship target);
 }

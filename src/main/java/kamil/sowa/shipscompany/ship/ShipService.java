@@ -1,5 +1,6 @@
 package kamil.sowa.shipscompany.ship;
 
+import kamil.sowa.shipscompany.cruise.Cruise;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,8 +41,10 @@ public class ShipService {
 
 
     public ShipDto put(Long id, ShipDto shipDto) {
-        Ship passenger = Ship.builder().id(id).build();
-        shipDtoMapper.toTarget(shipDto, passenger);
-        return shipDtoMapper.entityToDto(passenger);
+        Ship ship = shipRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Not found"));
+        shipDtoMapper.toTarget(shipDto, ship);
+        ship.setId(id);
+        return shipDtoMapper.entityToDto(ship);
     }
 }

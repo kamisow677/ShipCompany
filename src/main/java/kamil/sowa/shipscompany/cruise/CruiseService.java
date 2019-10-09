@@ -42,6 +42,7 @@ public class CruiseService {
         Cruise cruise = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Not found"));
         cruiseDtoMapper.toTarget(cruiseDto, cruise);
+        cruise.setId(id);
         return cruiseDtoMapper.entityToDto(cruise);
     }
 }

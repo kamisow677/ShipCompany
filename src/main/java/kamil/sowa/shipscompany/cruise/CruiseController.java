@@ -38,7 +38,7 @@ public class CruiseController {
     }
 
     @PutMapping(value ="/{id}")
-    public ResponseEntity<CruiseDto> save(@PathVariable Long id, @RequestBody CruiseDto cruiseDto){
+    public ResponseEntity<CruiseDto> update(@PathVariable Long id, @RequestBody CruiseDto cruiseDto){
         return ResponseEntity.ok(cruiseService.put(id, cruiseDto));
     }
 

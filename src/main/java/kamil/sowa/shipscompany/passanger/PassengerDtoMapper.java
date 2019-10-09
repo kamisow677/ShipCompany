@@ -16,8 +16,10 @@ public interface PassengerDtoMapper {
     @IterableMapping(qualifiedByName = "entityToDto")
     List<PassengerDto> entityToDto(List<Passenger> passengerList);
 
-    @Mapping(target = "id", source = "passengerDto.cruiseId")
+    @Mapping(target = "cruise.id", source = "passengerDto.cruiseId")
     Passenger dtoToEntity(PassengerDto passengerDto);
 
+    @Mapping(target = "target.id", ignore = true)
+    @Mapping(target = "target.cruise.id", source = "source.cruiseId")
     void toTarget(PassengerDto source, @MappingTarget Passenger target);
 }

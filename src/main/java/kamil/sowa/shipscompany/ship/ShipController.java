@@ -39,7 +39,7 @@ public class ShipController {
     }
 
     @PutMapping(value ="/{id}")
-    public ResponseEntity<ShipDto> save(@PathVariable Long id, @RequestBody ShipDto shipDto){
+    public ResponseEntity<ShipDto> update(@PathVariable Long id, @RequestBody ShipDto shipDto){
         return ResponseEntity.ok(shipService.put(id, shipDto));
     }
 

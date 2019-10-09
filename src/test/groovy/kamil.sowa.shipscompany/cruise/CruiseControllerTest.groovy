@@ -1,6 +1,5 @@
 package kamil.sowa.shipscompany.cruise
 
-import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 import kamil.sowa.shipscompany.ShipscompanyApplication
 import kamil.sowa.shipscompany.ship.Ship
@@ -13,24 +12,21 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.transaction.annotation.Transactional
 import spock.lang.Specification
 
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @SpringBootTest(classes = [ShipscompanyApplication.class])
 @RequiredArgsConstructor
 @AutoConfigureMockMvc
 class CruiseControllerTest extends Specification {
-    private static Long[] IDS = [1L, 2L,3L]
+    private static Long[] IDS = [1L, 2L, 3L]
     private Ship ship1 = ShipConstans.createShip1(IDS[0]).build()
     private Ship ship2 = ShipConstans.createShip2(IDS[1]).build()
     private Cruise cruise1 = CruiseConstans.createCruise1(IDS[0], ship1).build()
@@ -108,7 +104,6 @@ class CruiseControllerTest extends Specification {
         }
     }
 
-    @Transactional
     def "save specified Cruise"() {
         given:
         startDatabase()
@@ -132,4 +127,26 @@ class CruiseControllerTest extends Specification {
         }
     }
 
+    def "update specified Cruise"() {
+        given:
+        startDatabase()
+        def cruiseDummies = cruiseDto1
+
+        when:
+        def results = mockMvc.perform(put('/cruises/{id}', cruise2.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(generator.toJson(cruiseDummies)))
+                .andExpect(status().isOk())
+                .andReturn().response.contentAsString
+
+        then:
+        def result = jsonSlurper.parseText(results)
+
+        verifyAll {
+            result.id == cruise2.getId()
+            result.arrival == cruiseDummies.arrival.toString()
+            result.departure == cruiseDummies.departure.toString()
+            result.shipId == cruiseDummies.shipId
+        }
+    }
 }

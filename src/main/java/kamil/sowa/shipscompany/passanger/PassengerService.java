@@ -19,8 +19,8 @@ public class PassengerService {
                 .map(passengerDtoMapper::entityToDto);
     }
 
-    public PassengerDto save(PassengerDto CruiseDto) {
-        Passenger save = passengerRepository.save(passengerDtoMapper.dtoToEntity(CruiseDto));
+    public PassengerDto save(PassengerDto passengerDto) {
+        Passenger save = passengerRepository.save(passengerDtoMapper.dtoToEntity(passengerDto));
         return passengerDtoMapper.entityToDto(save);
     }
 
@@ -42,6 +42,7 @@ public class PassengerService {
     public PassengerDto put(Long id, PassengerDto passengerDto) {
         Passenger passenger = Passenger.builder().id(id).build();
         passengerDtoMapper.toTarget(passengerDto, passenger);
+        passenger.setId(id);
         return passengerDtoMapper.entityToDto(passenger);
     }
 }
