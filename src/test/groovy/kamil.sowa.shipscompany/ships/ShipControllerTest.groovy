@@ -1,4 +1,4 @@
-package kamil.sowa.shipscompany.cruise
+package kamil.sowa.shipscompany.ships
 
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper

@@ -3,6 +3,7 @@ package kamil.sowa.shipscompany.ship;
 import lombok.*;
 
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor
@@ -14,7 +15,7 @@ public class ShipDto {
     @Id
     private Long id;
 
-    @NotNull
+    @NotBlank
     private String model;
 
     @NotNull

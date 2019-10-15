@@ -1,8 +1,10 @@
-package kamil.sowa.shipscompany.cruise
+package kamil.sowa.shipscompany.passenger
 
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 import kamil.sowa.shipscompany.ShipscompanyApplication
+import kamil.sowa.shipscompany.cruise.Cruise
+import kamil.sowa.shipscompany.cruise.CruiseRepository
 import kamil.sowa.shipscompany.passanger.Passenger
 import kamil.sowa.shipscompany.passanger.PassengerDto
 import kamil.sowa.shipscompany.passanger.PassengerRepository

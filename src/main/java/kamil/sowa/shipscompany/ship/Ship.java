@@ -4,6 +4,7 @@ import kamil.sowa.shipscompany.cruise.Cruise;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class Ship {
     @NotNull
     private Long id;
 
-    @NotNull
+    @NotBlank
     private String model;
 
     @NotNull
