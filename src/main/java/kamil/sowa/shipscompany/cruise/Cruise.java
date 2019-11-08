@@ -1,5 +1,6 @@
 package kamil.sowa.shipscompany.cruise;
 
+import kamil.sowa.shipscompany.heaven.Heaven;
 import kamil.sowa.shipscompany.passanger.Passenger;
 import kamil.sowa.shipscompany.ship.Ship;
 import lombok.*;
@@ -25,6 +26,14 @@ public class Cruise {
 
     @NotNull
     private LocalDateTime arrival;
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "heavenAim_id")
+//    private Heaven heavenAim;
+//
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "heavenDeparture_id")
+//    private Heaven heavenDeparture;
 
     @OneToMany(fetch = FetchType.LAZY,
     mappedBy = "cruise")

@@ -22,4 +22,6 @@ public class PassengerDto {
     @NotNull
     private Long cruiseId;
 
+    private Long shipId;
+
 }

@@ -31,15 +31,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class PassengerControllerTest extends Specification {
     private static Long[] IDS = [1L, 2L, 3L]
     private Cruise cruise1 = CruiseConstans.createCruise1(IDS[0], null).build()
-    private Passenger passenger1 = PassengerConstans.createPassenger1(IDS[0],cruise1).build()
-    private Passenger passenger2 = PassengerConstans.createPassenger1(IDS[1],cruise1).build()
-    private PassengerDto passengerDto = PassengerConstans.createPassengerDto1(IDS[2],cruise1.getId()).build()
+    private Ship ship1 = ShipConstans.createShip1(IDS[0]).build()
+    private Passenger passenger1 = PassengerConstans.createPassenger1(IDS[0],cruise1, ship1).build()
+    private Passenger passenger2 = PassengerConstans.createPassenger1(IDS[1],cruise1, ship1).build()
+    private PassengerDto passengerDto = PassengerConstans.createPassengerDto1(
+            IDS[2],cruise1.getId(), ship1.getId()).build()
 
     @Autowired
     private CruiseRepository cruiseRepository;
 
     @Autowired
     private PassengerRepository passengerRepository;
+
+    @Autowired
+    private ShipRepository shipRepository;
 
     @Autowired
     private MockMvc mockMvc
@@ -49,10 +54,12 @@ class PassengerControllerTest extends Specification {
     def cleanup() {
         passengerRepository.deleteAll()
         cruiseRepository.deleteAll()
+        shipRepository.deleteAll()
     }
 
     def startDatabase() {
         cruiseRepository.save(cruise1)
+        shipRepository.save(ship1)
         passengerRepository.save(passenger1)
         passengerRepository.save(passenger2)
     }
@@ -75,6 +82,7 @@ class PassengerControllerTest extends Specification {
             entry.firstName == passengerDummies[i].firstName
             entry.lastName == passengerDummies[i].lastName
             entry.cruiseId == passengerDummies[i].cruise.id
+            entry.shipId == passengerDummies[i].ship.id
         }
     }
 
@@ -96,6 +104,7 @@ class PassengerControllerTest extends Specification {
             result.firstName == dummy.firstName
             result.lastName == dummy.lastName
             result.cruiseId == dummy.cruise.id
+            result.shipId == dummy.ship.id
         }
     }
 
@@ -119,6 +128,7 @@ class PassengerControllerTest extends Specification {
             result.firstName == passengerDummy.firstName
             result.lastName == passengerDummy.lastName
             result.cruiseId == passengerDummy.cruiseId
+            result.shipId == passengerDummy.shipId
         }
     }
 
@@ -142,6 +152,7 @@ class PassengerControllerTest extends Specification {
             result.firstName == passengersDummy.firstName
             result.lastName == passengersDummy.lastName
             result.cruiseId == passengersDummy.cruiseId
+            result.shipId == passengersDummy.shipId
         }
     }
 }

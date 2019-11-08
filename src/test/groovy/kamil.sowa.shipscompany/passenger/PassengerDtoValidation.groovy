@@ -6,6 +6,7 @@ import kamil.sowa.shipscompany.passanger.PassengerDto
 import kamil.sowa.shipscompany.ship.Ship
 import kamil.sowa.shipscompany.utils.CruiseConstans
 import kamil.sowa.shipscompany.utils.PassengerConstans
+import kamil.sowa.shipscompany.utils.ShipConstans
 import lombok.RequiredArgsConstructor
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -21,7 +22,8 @@ class PassengerDtoValidation extends Specification {
     private static final MUST_NOT_BE_NULL = "must not be null"
     private static final MUST_NOT_BE_BLANK = "must not be blank"
     private static final Cruise cruise = CruiseConstans.createCruise1(IDS[0], null).build()
-    private static final PassengerDto passengerDto = PassengerConstans.createPassengerDto1(IDS[0], cruise.getId()).build()
+    private static final Ship ship1 = ShipConstans.createShip1(IDS[0]).build();
+    private static final PassengerDto passengerDto = PassengerConstans.createPassengerDto1(IDS[0], cruise.getId(), ship1.getId()).build()
     private static final FIRSTNAME_FIELD = "firstName"
     private static final LASTNAME_FIELD = "lastName"
     private static final CRUISE_ID_FIELD = "cruiseId"
@@ -74,6 +76,6 @@ class PassengerDtoValidation extends Specification {
     }
 
     def passengerDtoBuilder() {
-        PassengerConstans.createPassengerDto1(IDS[0], cruise.getId())
+        PassengerConstans.createPassengerDto1(IDS[0], cruise.getId(), ship1.getId())
     }
 }

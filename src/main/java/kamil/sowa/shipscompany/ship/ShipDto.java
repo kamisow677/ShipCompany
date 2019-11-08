@@ -20,4 +20,6 @@ public class ShipDto {
 
     @NotNull
     private Integer serialNumber;
+
+    private Long heavenId;
 }
