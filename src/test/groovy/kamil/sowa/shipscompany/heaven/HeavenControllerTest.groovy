@@ -69,6 +69,7 @@ class HeavenControllerTest extends Specification {
         then:
         def result = jsonSlurper.parseText(results).content
 
+        expect:
         result.eachWithIndex { def entry, int i ->
             entry.id == heavenDummies[i].id
             entry.name == heavenDummies[i].name
@@ -88,6 +89,7 @@ class HeavenControllerTest extends Specification {
         then:
         def result = jsonSlurper.parseText(results)
 
+        expect:
         verifyAll {
             result.id == cruiseDummy.id
             result.name == cruiseDummy.name.toString()
@@ -109,6 +111,7 @@ class HeavenControllerTest extends Specification {
         then:
         def result = jsonSlurper.parseText(results)
 
+        expect:
         verifyAll {
             result.id == cruiseDummies.id
             result.name == cruiseDummies.name.toString()
@@ -130,6 +133,7 @@ class HeavenControllerTest extends Specification {
         then:
         def result = jsonSlurper.parseText(results)
 
+        expect:
         verifyAll {
             result.id == heaven2.getId()
             result.name == cruiseDummies.name.toString()

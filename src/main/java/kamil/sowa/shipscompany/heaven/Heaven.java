@@ -23,9 +23,13 @@ public class Heaven {
     @NotNull
     private String name;
 
-//    @OneToMany(fetch = FetchType.LAZY,
-//            mappedBy = "heaven")
-//    private List<Cruise> cruiseEntities;
+    @OneToMany(fetch = FetchType.LAZY,
+            mappedBy = "heavenAim")
+    private List<Cruise> heavenAimEntities;
+
+    @OneToMany(fetch = FetchType.LAZY,
+            mappedBy = "heavenDeparture")
+    private List<Cruise> heavenDepartureEntities;
 
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "heaven")

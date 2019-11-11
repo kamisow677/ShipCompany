@@ -2,9 +2,11 @@ package kamil.sowa.shipscompany.passenger
 
 import kamil.sowa.shipscompany.cruise.Cruise
 import kamil.sowa.shipscompany.cruise.CruiseDto
+import kamil.sowa.shipscompany.heaven.Heaven
 import kamil.sowa.shipscompany.passanger.PassengerDto
 import kamil.sowa.shipscompany.ship.Ship
 import kamil.sowa.shipscompany.utils.CruiseConstans
+import kamil.sowa.shipscompany.utils.HeavenConstans
 import kamil.sowa.shipscompany.utils.PassengerConstans
 import kamil.sowa.shipscompany.utils.ShipConstans
 import lombok.RequiredArgsConstructor
@@ -21,7 +23,8 @@ class PassengerDtoValidation extends Specification {
     private static Long[] IDS = [1L]
     private static final MUST_NOT_BE_NULL = "must not be null"
     private static final MUST_NOT_BE_BLANK = "must not be blank"
-    private static final Cruise cruise = CruiseConstans.createCruise1(IDS[0], null).build()
+    private static final Heaven heaven1 = HeavenConstans.createHeaven1(IDS[0]).build()
+    private static final Cruise cruise = CruiseConstans.createCruise1(IDS[0], null, heaven1).build()
     private static final Ship ship1 = ShipConstans.createShip1(IDS[0]).build();
     private static final PassengerDto passengerDto = PassengerConstans.createPassengerDto1(IDS[0], cruise.getId(), ship1.getId()).build()
     private static final FIRSTNAME_FIELD = "firstName"

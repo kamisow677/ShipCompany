@@ -2,9 +2,11 @@ package kamil.sowa.shipscompany.cruise
 
 import groovy.json.JsonSlurper
 import kamil.sowa.shipscompany.ShipscompanyApplication
+import kamil.sowa.shipscompany.heaven.Heaven
 import kamil.sowa.shipscompany.ship.Ship
 import kamil.sowa.shipscompany.ship.ShipRepository
 import kamil.sowa.shipscompany.utils.CruiseConstans
+import kamil.sowa.shipscompany.utils.HeavenConstans
 import kamil.sowa.shipscompany.utils.ShipConstans
 import lombok.RequiredArgsConstructor
 import org.springframework.beans.factory.annotation.Autowired
@@ -29,15 +31,19 @@ class CruiseControllerTest extends Specification {
     private static Long[] IDS = [1L, 2L, 3L]
     private Ship ship1 = ShipConstans.createShip1(IDS[0]).build()
     private Ship ship2 = ShipConstans.createShip2(IDS[1]).build()
-    private Cruise cruise1 = CruiseConstans.createCruise1(IDS[0], ship1).build()
-    private Cruise cruise2 = CruiseConstans.createCruise2(IDS[1], ship2).build()
-    private CruiseDto cruiseDto1 = CruiseConstans.createCruiseDto1(IDS[2], ship1.getId()).build()
+    private Heaven heaven1 = HeavenConstans.createHeaven1(IDS[0]).build()
+    private Cruise cruise1 = CruiseConstans.createCruise1(IDS[0], ship1, heaven1).build()
+    private Cruise cruise2 = CruiseConstans.createCruise2(IDS[1], ship2, heaven1).build()
+    private CruiseDto cruiseDto1 = CruiseConstans.createCruiseDto1(IDS[2], ship1.getId(), heaven1.getId()).build()
 
     @Autowired
     private CruiseRepository cruiseRepository
 
     @Autowired
     private ShipRepository shipRepository
+
+    @Autowired
+    private ShipRepository heavenRepository
 
     @Autowired
     private MockMvc mockMvc
@@ -47,6 +53,7 @@ class CruiseControllerTest extends Specification {
     def cleanup() {
         cruiseRepository.deleteAll()
         shipRepository.deleteAll()
+        heavenRepository.deleteAll()
     }
 
     def generator = new groovy.json.JsonGenerator.Options()
@@ -56,6 +63,7 @@ class CruiseControllerTest extends Specification {
             .build()
 
     private void startDatabase() {
+        heavenRepository.save(heaven1)
         shipRepository.save(ship1)
         shipRepository.save(ship2)
         cruiseRepository.save(cruise1)
@@ -75,11 +83,13 @@ class CruiseControllerTest extends Specification {
         then:
         def result = jsonSlurper.parseText(results).content
 
+        expect:
         result.eachWithIndex { def entry, int i ->
             entry.id == cruiseDummies[i].id
             entry.arrival == cruiseDummies[i].arrival
             entry.departure == cruiseDummies[i].departure
             entry.shipId == cruiseDummies[i].ship.id
+            entry.heavenDepartureId == cruiseDummies[i].heavenDeparture.id;
         }
     }
 
@@ -96,11 +106,13 @@ class CruiseControllerTest extends Specification {
         then:
         def result = jsonSlurper.parseText(results)
 
+        expect:
         verifyAll {
             result.id == cruiseDummy.id
             result.arrival == cruiseDummy.arrival.toString()
             result.departure == cruiseDummy.departure.toString()
             result.shipId == cruiseDummy.ship.id
+            result.heavenDepartureId == cruiseDummy.heavenDeparture.id;
         }
     }
 
@@ -119,11 +131,13 @@ class CruiseControllerTest extends Specification {
         then:
         def result = jsonSlurper.parseText(results)
 
+        expect:
         verifyAll {
             result.id == cruiseDummies.id
             result.arrival == cruiseDummies.arrival.toString()
             result.departure == cruiseDummies.departure.toString()
             result.shipId == cruiseDummies.shipId
+            result.heavenDepartureId == cruiseDummies.heavenDepartureId
         }
     }
 
@@ -142,11 +156,13 @@ class CruiseControllerTest extends Specification {
         then:
         def result = jsonSlurper.parseText(results)
 
+        expect:
         verifyAll {
             result.id == cruise2.getId()
             result.arrival == cruiseDummies.arrival.toString()
             result.departure == cruiseDummies.departure.toString()
             result.shipId == cruiseDummies.shipId
+            result.heavenDepartureId == cruiseDummies.heavenDepartureId
         }
     }
 }

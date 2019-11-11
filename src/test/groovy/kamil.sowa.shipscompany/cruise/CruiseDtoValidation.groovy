@@ -1,7 +1,9 @@
 package kamil.sowa.shipscompany.cruise
 
+import kamil.sowa.shipscompany.heaven.Heaven
 import kamil.sowa.shipscompany.ship.Ship
 import kamil.sowa.shipscompany.utils.CruiseConstans
+import kamil.sowa.shipscompany.utils.HeavenConstans
 import kamil.sowa.shipscompany.utils.ShipConstans;
 import lombok.RequiredArgsConstructor
 import spock.lang.Specification
@@ -17,7 +19,8 @@ class CruiseDtoValidation extends Specification {
     private static Long[] IDS = [1L]
     private static final MUST_NOT_BE_NULL = "must not be null"
     private static final Ship ship1 = ShipConstans.createShip1(IDS[0]).build()
-    private static final CruiseDto cruiseDto1 = CruiseConstans.createCruiseDto1(IDS[0], ship1.getId()).build()
+    private static final Heaven heaven1 = HeavenConstans.createHeaven1(IDS[0]).build()
+    private static final CruiseDto cruiseDto1 = CruiseConstans.createCruiseDto1(IDS[0], ship1.getId(), heaven1.getId()).build()
     private static final DEPARTURE_FIELD = "departure"
     private static final ARRIVAL_FIELD = "arrival"
     private static final SHIP_ID_FIELD = "shipId"
@@ -70,7 +73,7 @@ class CruiseDtoValidation extends Specification {
     }
 
     def cruiseDtoBuilder() {
-        CruiseConstans.createCruiseDto1(IDS[0], ship1.getId())
+        CruiseConstans.createCruiseDto1(IDS[0], ship1.getId(), heaven1.getId())
     }
 
 }

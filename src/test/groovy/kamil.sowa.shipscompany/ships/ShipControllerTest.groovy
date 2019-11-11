@@ -60,6 +60,7 @@ class ShipControllerTest extends Specification {
         then:
         def result = jsonSlurper.parseText(results).content
 
+        expect:
         result.eachWithIndex { def entry, int i ->
             entry.id == shipDummies[i].id
             entry.model == shipDummies[i].model
@@ -80,6 +81,7 @@ class ShipControllerTest extends Specification {
         then:
         def result = jsonSlurper.parseText(results)
 
+        expect:
         verifyAll {
             result.id == dummy.id
             result.model == dummy.model
@@ -102,6 +104,7 @@ class ShipControllerTest extends Specification {
         then:
         def result = jsonSlurper.parseText(results)
 
+        expect:
         verifyAll {
             result.id == shipDummy.id
             result.model == shipDummy.model
@@ -124,6 +127,7 @@ class ShipControllerTest extends Specification {
         then:
         def result = jsonSlurper.parseText(results)
 
+        expect:
         verifyAll {
             result.id == ship2.getId()
             result.model == shipDummy.model

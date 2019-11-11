@@ -27,14 +27,6 @@ public class Cruise {
     @NotNull
     private LocalDateTime arrival;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "heavenAim_id")
-//    private Heaven heavenAim;
-//
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "heavenDeparture_id")
-//    private Heaven heavenDeparture;
-
     @OneToMany(fetch = FetchType.LAZY,
     mappedBy = "cruise")
     private List<Passenger> passengerEntities;
@@ -42,5 +34,13 @@ public class Cruise {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ship_id")
     private Ship ship;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "heavenAim_id")
+    private Heaven heavenAim;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "heavenDeparture_id")
+    private Heaven heavenDeparture;
 
 }
