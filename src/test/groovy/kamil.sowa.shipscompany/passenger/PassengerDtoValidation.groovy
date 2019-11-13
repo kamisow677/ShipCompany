@@ -26,7 +26,7 @@ class PassengerDtoValidation extends Specification {
     private static final Heaven heaven1 = HeavenConstans.createHeaven1(IDS[0]).build()
     private static final Cruise cruise = CruiseConstans.createCruise1(IDS[0], null, heaven1).build()
     private static final Ship ship1 = ShipConstans.createShip1(IDS[0]).build();
-    private static final PassengerDto passengerDto = PassengerConstans.createPassengerDto1(IDS[0], cruise.getId(), ship1.getId()).build()
+    private static final PassengerDto passengerDto = PassengerConstans.createPassengerDto1(IDS[0], ship1.getId()).build()
     private static final FIRSTNAME_FIELD = "firstName"
     private static final LASTNAME_FIELD = "lastName"
     private static final CRUISE_ID_FIELD = "cruiseId"
@@ -71,7 +71,6 @@ class PassengerDtoValidation extends Specification {
         builder                                      | message          | property | invalidValue
         passengerDtoBuilder().firstName("").build()  | MUST_NOT_BE_BLANK | FIRSTNAME_FIELD | ""
         passengerDtoBuilder().lastName("").build()   | MUST_NOT_BE_BLANK | LASTNAME_FIELD | ""
-        passengerDtoBuilder().cruiseId(null).build() | MUST_NOT_BE_NULL | CRUISE_ID_FIELD | null
     }
 
     def close() {
@@ -79,6 +78,6 @@ class PassengerDtoValidation extends Specification {
     }
 
     def passengerDtoBuilder() {
-        PassengerConstans.createPassengerDto1(IDS[0], cruise.getId(), ship1.getId())
+        PassengerConstans.createPassengerDto1(IDS[0], ship1.getId())
     }
 }

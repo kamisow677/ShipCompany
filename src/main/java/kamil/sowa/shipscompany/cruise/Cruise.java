@@ -3,6 +3,7 @@ package kamil.sowa.shipscompany.cruise;
 import kamil.sowa.shipscompany.heaven.Heaven;
 import kamil.sowa.shipscompany.passanger.Passenger;
 import kamil.sowa.shipscompany.ship.Ship;
+import kamil.sowa.shipscompany.ticket.Ticket;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,10 +28,6 @@ public class Cruise {
     @NotNull
     private LocalDateTime arrival;
 
-    @OneToMany(fetch = FetchType.LAZY,
-    mappedBy = "cruise")
-    private List<Passenger> passengerEntities;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ship_id")
     private Ship ship;
@@ -42,5 +39,9 @@ public class Cruise {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "heavenDeparture_id")
     private Heaven heavenDeparture;
+
+    @OneToMany(fetch = FetchType.LAZY,
+            mappedBy = "cruise")
+    private List<Ticket> ticketEntities;
 
 }

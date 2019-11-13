@@ -19,9 +19,6 @@ public class PassengerDto {
     @NotBlank
     private String lastName;
 
-    @NotNull
-    private Long cruiseId;
-
     private Long shipId;
 
 }

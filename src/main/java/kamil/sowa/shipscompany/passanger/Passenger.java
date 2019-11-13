@@ -2,10 +2,12 @@ package kamil.sowa.shipscompany.passanger;
 
 import kamil.sowa.shipscompany.cruise.Cruise;
 import kamil.sowa.shipscompany.ship.Ship;
+import kamil.sowa.shipscompany.ticket.Ticket;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Data
@@ -25,11 +27,11 @@ public class Passenger {
     private String lastName;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cruise_id")
-    Cruise cruise;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ship_id")
     Ship ship;
+
+    @OneToMany(fetch = FetchType.LAZY,
+            mappedBy = "passenger")
+    private List<Ticket> tickets;
 
 }

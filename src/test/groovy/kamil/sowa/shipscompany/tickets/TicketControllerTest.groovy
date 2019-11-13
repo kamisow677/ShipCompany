@@ -1,4 +1,4 @@
-package kamil.sowa.shipscompany.passenger
+package kamil.sowa.shipscompany.tickets
 
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
@@ -11,12 +11,14 @@ import kamil.sowa.shipscompany.passanger.Passenger
 import kamil.sowa.shipscompany.passanger.PassengerDto
 import kamil.sowa.shipscompany.passanger.PassengerRepository
 import kamil.sowa.shipscompany.ship.Ship
-import kamil.sowa.shipscompany.ship.ShipDto
 import kamil.sowa.shipscompany.ship.ShipRepository
+import kamil.sowa.shipscompany.ticket.TicketDto
+import kamil.sowa.shipscompany.ticket.TicketRepository
 import kamil.sowa.shipscompany.utils.CruiseConstans
 import kamil.sowa.shipscompany.utils.HeavenConstans
 import kamil.sowa.shipscompany.utils.PassengerConstans
 import kamil.sowa.shipscompany.utils.ShipConstans
+import kamil.sowa.shipscompany.utils.TicketConstans
 import lombok.RequiredArgsConstructor
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -27,19 +29,23 @@ import spock.lang.Specification
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import kamil.sowa.shipscompany.ticket.Ticket
 
 @SpringBootTest(classes = [ShipscompanyApplication.class])
 @RequiredArgsConstructor
 @AutoConfigureMockMvc
-class PassengerControllerTest extends Specification {
+class TicketControllerTest extends Specification {
     private static Long[] IDS = [1L, 2L, 3L]
+    //will be dumped -------------------------
     private Heaven heaven1 = HeavenConstans.createHeaven1(IDS[0]).build()
-    private Cruise cruise1 = CruiseConstans.createCruise1(IDS[0], null, heaven1).build()
     private Ship ship1 = ShipConstans.createShip1(IDS[0]).build()
-    private Passenger passenger1 = PassengerConstans.createPassenger1(IDS[0], ship1).build()
-    private Passenger passenger2 = PassengerConstans.createPassenger1(IDS[1], ship1).build()
-    private PassengerDto passengerDto = PassengerConstans.createPassengerDto1(
-            IDS[2], ship1.getId()).build()
+    private Cruise cruise1 = CruiseConstans.createCruise1(IDS[0], ship1, heaven1).build()
+    //-----------------------
+    private Passenger passenger = PassengerConstans.createPassenger1(IDS[0]).build()
+    private Ticket ticket1 = TicketConstans.createTicket1(IDS[0], passenger, cruise1).build()
+    private Ticket ticket2 = TicketConstans.createTicket2(IDS[1], passenger, cruise1).build()
+    private TicketDto ticketDto = TicketConstans.createTicketDto1(
+            IDS[2],passenger.getId(), cruise1.getId()).build()
 
     @Autowired
     private CruiseRepository cruiseRepository;
@@ -54,11 +60,15 @@ class PassengerControllerTest extends Specification {
     private HeavenRepository heavenRepository;
 
     @Autowired
+    private TicketRepository ticketRepository;
+
+    @Autowired
     private MockMvc mockMvc
 
     def jsonSlurper = new JsonSlurper()
 
     def cleanup() {
+        ticketRepository.deleteAll()
         passengerRepository.deleteAll()
         cruiseRepository.deleteAll()
         shipRepository.deleteAll()
@@ -67,19 +77,21 @@ class PassengerControllerTest extends Specification {
 
     def startDatabase() {
         heavenRepository.save(heaven1)
-        cruiseRepository.save(cruise1)
         shipRepository.save(ship1)
-        passengerRepository.save(passenger1)
-        passengerRepository.save(passenger2)
+        cruiseRepository.save(cruise1)
+        passengerRepository.save(passenger)
+        ticketRepository.save(ticket1)
+        ticketRepository.save(ticket2)
+
     }
 
-    def "get all Passenger"() {
+    def "get all Ticket"() {
         given:
         startDatabase()
-        def passengerDummies = [passenger1, passenger2]
+        def passengerDummies = [ticket1, ticket2]
 
         when:
-        def results = mockMvc.perform(get('/passengers'))
+        def results = mockMvc.perform(get('/tickets'))
                 .andExpect(status().isOk())
                 .andReturn().response.contentAsString
 
@@ -89,20 +101,20 @@ class PassengerControllerTest extends Specification {
         expect:
         result.eachWithIndex { def entry, int i ->
             entry.id == passengerDummies[i].id
-            entry.firstName == passengerDummies[i].firstName
-            entry.lastName == passengerDummies[i].lastName
-            entry.shipId == passengerDummies[i].ship.id
+            entry.price == passengerDummies[i].price
+            entry.passengerId == passengerDummies[i].passenger.id
+            entry.cruiseId == passengerDummies[i].cruise.id
 
         }
     }
 
-    def "get specified Passenger"() {
+    def "get specified Ticket"() {
         given:
         startDatabase()
-        def dummy = passenger1
+        def dummy = ticket1
 
         when:
-        def results = mockMvc.perform(get('/passengers/{id}', dummy.getId()))
+        def results = mockMvc.perform(get('/tickets/{id}', dummy.getId()))
                 .andExpect(status().isOk())
                 .andReturn().response.contentAsString
 
@@ -112,19 +124,19 @@ class PassengerControllerTest extends Specification {
         expect:
         verifyAll {
             result.id == dummy.id
-            result.firstName == dummy.firstName
-            result.lastName == dummy.lastName
-            result.shipId == dummy.ship.id
+            result.price == dummy.price
+            result.passengerId == dummy.passenger.id
+            result.cruiseId == dummy.cruise.id
         }
     }
 
-    def "save specified Passenger"() {
+    def "save specified Ticket"() {
         given:
         startDatabase()
-        def passengerDummy = passengerDto
+        def passengerDummy = ticketDto
 
         when:
-        def results = mockMvc.perform(post('/passengers')
+        def results = mockMvc.perform(post('/tickets')
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonOutput.toJson(passengerDummy)))
                 .andExpect(status().isOk())
@@ -136,19 +148,19 @@ class PassengerControllerTest extends Specification {
         expect:
         verifyAll {
             result.id == passengerDummy.id
-            result.firstName == passengerDummy.firstName
-            result.lastName == passengerDummy.lastName
-            result.shipId == passengerDummy.shipId
+            result.price == passengerDummy.price
+            result.passengerId == passengerDummy.passengerId
+            result.cruiseId == passengerDummy.cruiseId
         }
     }
 
-    def "update specified Passenger"() {
+    def "update specified Ticket"() {
         given:
         startDatabase()
-        def passengersDummy = passengerDto
+        def passengersDummy = ticketDto
 
         when:
-        def results = mockMvc.perform(put('/passengers/{id}', passenger1.getId())
+        def results = mockMvc.perform(put('/tickets/{id}', ticket1.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonOutput.toJson(passengersDummy)))
                 .andExpect(status().isOk())
@@ -159,10 +171,10 @@ class PassengerControllerTest extends Specification {
 
         expect:
         verifyAll {
-            result.id == cruise1.getId()
-            result.firstName == passengersDummy.firstName
-            result.lastName == passengersDummy.lastName
-            result.shipId == passengersDummy.shipId
+            result.id == ticket1.getId()
+            result.price == passengersDummy.price
+            result.passengerId == passengersDummy.passengerId
+            result.cruiseId == passengersDummy.cruiseId
         }
     }
 }

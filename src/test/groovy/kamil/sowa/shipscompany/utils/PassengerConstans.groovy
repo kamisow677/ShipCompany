@@ -10,33 +10,53 @@ class PassengerConstans {
     private static String[] FIRSTNAME = ["Adam", "John","Tom"]
     private static String[] LASTNAME = ["Smith", "Newmann","Ford"]
 
-    static Passenger.PassengerBuilder createPassenger1(Long id, Cruise cruise, Ship ship) {
+    static Passenger.PassengerBuilder createPassenger1(Long id) {
         return new Passenger.PassengerBuilder()
                 .id(id)
                 .firstName(FIRSTNAME[0])
                 .lastName(LASTNAME[0])
-                .cruise(cruise)
+
+    }
+
+    static Passenger.PassengerBuilder createPassenger1(Long id, Ship ship) {
+        return new Passenger.PassengerBuilder()
+                .id(id)
+                .firstName(FIRSTNAME[0])
+                .lastName(LASTNAME[0])
                 .ship(ship)
 
     }
 
-    static Passenger.PassengerBuilder createPassenger2(Long id, Cruise cruise, Ship ship) {
+    static Passenger.PassengerBuilder createPassenger2(Long id, Ship ship) {
         return new Passenger.PassengerBuilder()
                 .id(id)
                 .firstName(FIRSTNAME[1])
                 .lastName(LASTNAME[1])
-                .cruise(cruise)
                 .ship(ship)
 
     }
 
+    static Passenger.PassengerBuilder createPassenger2(Long id) {
+        return new Passenger.PassengerBuilder()
+                .id(id)
+                .firstName(FIRSTNAME[1])
+                .lastName(LASTNAME[1])
+    }
+
     static PassengerDto.PassengerDtoBuilder createPassengerDto1(
-            Long id, Long cruiseId, Long shipId) {
+            Long id, Long shipId) {
         return new PassengerDto.PassengerDtoBuilder()
                 .id(id)
                 .firstName(FIRSTNAME[2])
                 .lastName(LASTNAME[2])
-                .cruiseId(cruiseId)
                 .shipId(shipId)
+    }
+
+    static PassengerDto.PassengerDtoBuilder createPassengerDto1(
+            Long id) {
+        return new PassengerDto.PassengerDtoBuilder()
+                .id(id)
+                .firstName(FIRSTNAME[2])
+                .lastName(LASTNAME[2])
     }
 }
