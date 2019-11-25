@@ -15,4 +15,79 @@
             </column>
         </createTable>
     </changeSet>
+
+    <changeSet author="admin" id="2">
+        <createTable tableName="ship">
+            <column autoIncrement="false" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="model" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="serial_number" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="heaven_id" type="int">
+                <constraints nullable="true" foreignKeyName="fk_ship_heaven" references="heaven(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="admin" id="3">
+        <createTable tableName="cruise">
+            <column autoIncrement="false" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="departure" type="TIMESTAMP WITHOUT TIMEZONE ">
+                <constraints nullable="false"/>
+            </column>
+            <column name="arrival" type="TIMESTAMP WITHOUT TIMEZONE ">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ship_id" type="int">
+                <constraints nullable="true" foreignKeyName="fk_cruise_ship" references="ship(id)"/>
+            </column>
+            <column name="heaven_aim_id" type="int">
+                <constraints nullable="true" foreignKeyName="fk_cruise_heavenAim" references="heaven(id)"/>
+            </column>
+            <column name="heaven_departure_id" type="int">
+                <constraints nullable="true" foreignKeyName="fk_cruise_heavenDeparture" references="heaven(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="admin" id="4">
+        <createTable tableName="passenger">
+            <column autoIncrement="false" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="first_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ship_id" type="int">
+                <constraints nullable="true" foreignKeyName="fk_passenger_ship" references="ship(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="admin" id="5">
+        <createTable tableName="ticket">
+            <column autoIncrement="false" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="price" type="DECIMAL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="passenger_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_ticket_passenger" references="passenger(id)"/>
+            </column>
+            <column name="cruise_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_ticket_cruise" references="cruise(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>

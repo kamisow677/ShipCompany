@@ -37,11 +37,19 @@ class HeavenControllerTest extends Specification {
     private HeavenRepository heavenRepository
 
     @Autowired
+    private ShipRepository shipRepository
+
+    @Autowired
     private MockMvc mockMvc
 
     def jsonSlurper = new JsonSlurper()
 
     def cleanup() {
+        heavenRepository.deleteAll()
+    }
+
+    def setup(){
+        shipRepository.deleteAll()
         heavenRepository.deleteAll()
     }
 

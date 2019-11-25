@@ -41,6 +41,4 @@ public class Ticket {
     @JoinColumn(name = "cruise_id")
     Cruise cruise;
 
-
-
 }

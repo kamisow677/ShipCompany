@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet author="admin" id="insert-example-1">
+        <insert tableName="heaven">
+            <column name="id" value="1"/>
+            <column name="name" value="Hamburg"/>
+        </insert>
+        <insert tableName="heaven">
+            <column name="id" value="2"/>
+            <column name="name" value="Frankfurt"/>
+        </insert>
+        <insert tableName="heaven">
+            <column name="id" value="3"/>
+            <column name="name" value="Sydney"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="admin" id="insert-example-2">
+        <insert tableName="ship">
+            <column name="id" value="1"/>
+            <column name="model" value="UX-12"/>
+            <column name="serial_number" value="12"/>
+            <column name="heaven_id" value="1"/>
+        </insert>
+        <insert tableName="ship">
+            <column name="id" value="2"/>
+            <column name="model" value="UX-12"/>
+            <column name="serial_number" value="13"/>
+            <column name="heaven_id" value="1"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
